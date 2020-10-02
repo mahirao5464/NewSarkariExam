@@ -25,7 +25,7 @@ namespace NewSarkariExam.Controllers
             _unityOfWork = unitOfWork;
         }
 
-        [HttpGet, Authorize]
+        [HttpGet]
         public IEnumerable<Job> Get()
         {
             try

@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
     if(loginForm.valid){
       this.dashboardService.login(this.userModel).subscribe(res => {
         console.log(res);
+        if(res.token){
+          localStorage.setItem('jwt',res.token);
+        }
       });
     }
  }

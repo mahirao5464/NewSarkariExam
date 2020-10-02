@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,6 +30,7 @@ import { SafeHTMLPipe } from './safe-html.pipe';
 import { NoSanitizePipe } from './no-sanitize.pipe';
 import { JoblistComponent } from './admin-dashboard/add-jobs/joblist/joblist.component';
 import { LoginComponent } from './user/login/login.component';
+import { AuthInterceptorService } from './admin-dashboard/auth-interceptor.service';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -73,7 +74,8 @@ export function tokenGetter() {
   ],
   providers: [ 
     FireService,
-    { provide: UrlSerializer, useClass: CustomUrlSerializer }
+    { provide: UrlSerializer, useClass: CustomUrlSerializer },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent]
 })
