@@ -1,0 +1,207 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 p-2">
+      <h2>Job List</h2>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor='let job of jobs'><a
+            class="btn btn-default"><b>{{job.postName}}</b></a><button class="badge badge-pill badge-danger"
+            (click)='deleteJob(job)'>delete</button><button class="badge badge-pill badge-success" data-toggle="modal"
+            data-target="#myModal" (click)='loadJobToUpdate(job)'>Edit</button></li>
+        <!-- <li class="list-grhol;phg cw njmc 1coup-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li> -->
+      </ul>
+    </div>
+    <div class="col-lg-4 pt-5">
+      <ul class="list-group">
+        <li class="list-group-item"><a class="btn btn-default" [routerLink]="['/add-job']"><b>Add New Job</b></a></li>
+        <!-- <li class="list-grhol;phg cw njmc 1coup-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li> -->
+      </ul>
+
+    </div>
+  </div>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Category</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <!-- <form #jobForm="ngForm" (ngSubmit)="submitForm(jobForm)">
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="job.name" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Short Name For Category :</label>
+                    <input type="text" name="shortName" class="form-control" [(ngModel)]="category.shortName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>State Name (if this is any state exam i.e. Haryana, Center) :</label>
+                    <input type="text" name="stateName" class="form-control" [(ngModel)]="category.stateName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" [(ngModel)]="category.description"></textarea>
+          
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" [disabled]="!categoryForm.valid" class="btn btn-success">Submit</button>
+          
+          
+                  </div>
+                </form> -->
+              <h2>Edit Job</h2>
+              <form #jobForm="ngForm" (ngSubmit)="submitForm(jobForm)">
+                <div class="form-group">
+                  <label>PostName:</label>
+                  <input type="text" name="name" class="form-control" [(ngModel)]="job.postName" required>
+                </div>
+                <div class="form-group">
+                  <label>Short Name For Job :</label>
+                  <input type="text" name="shortName" class="form-control" [(ngModel)]="job.postShortName" required>
+                </div>
+                <div class="form-group">
+                  <label>Number of posts :</label>
+                  <input type="number" name="totalPost" class="form-control" [(ngModel)]="job.totalPost" required>
+                </div>
+                <div class="form-group">
+                  <label>Advertisement No :</label>
+                  <input type="text" name="advtNo" class="form-control" [(ngModel)]="job.advtNo" required>
+                </div>
+                <div class="form-group">
+                  <label>Post Link:</label>
+                  <input type="url" name="postLink" class="form-control" [(ngModel)]="job.postLink" required>
+                </div>
+                <div class="form-group">
+                  <label>Select Category: </label>
+                  <select name="categoryId" [(ngModel)]="job.categoryId" required>
+                    <option *ngFor="let category of dropDownCategory" selected="{{category.selected}}"
+                      value="{{category.value}}">{{category.text}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>importantLink:</label>
+                  <div class="border p-2">
+                    <label>Title:</label>
+                    <input type="text" name="ptitle" class="form-control" [(ngModel)]="tempPostLink.title">
+                    <label>Provide Link:</label>
+                    <input type="url" name="plink" class="form-control" [(ngModel)]="tempPostLink.link">
+                    <br>
+                    <button class="btn-btn btn-primary" (click)="insertLink(tempPostLink)">Insert</button>
+                    <br><br>
+                    <table class="table">
+                      <thead>
+                        <th>Title</th>
+                        <th>Link</th>
+                        <th>Action</th>
+                      </thead>
+                      <tr *ngFor="let link of job.importantLinks; let i = index">
+                        <td>{{link.title}}</td>
+                        <td><input type="text" value="{{link.link}}" [disabled]="true"></td>
+                        <td><button class="btn btn-danger" (click)="removePostLink(i)">remove</button></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>importantDates:</label>
+                  <div class="border p-2">
+                    <label>Title:</label>
+                    <input type="text" name="dateTitle" class="form-control" [(ngModel)]="tempImpDate.title">
+                    <label>Date or Text:</label>
+                    <input type="text" name="dateText" class="form-control" [(ngModel)]="tempImpDate.dateOrText">
+                    <br>
+                    <button [disabled]="tempImpDate.title == '' || tempImpDate.dateOrText == ''"
+                      class="btn-btn btn-primary" (click)="insertDate(tempImpDate);$event.preventDefault();">Insert</button>
+                    <br><br>
+                    <table class="table">
+                      <thead>
+                        <th>Title</th>
+                        <th>Date Or Text</th>
+                        <th>Action</th>
+                      </thead>
+                      <tr *ngFor="let impDate of job.importantDates; let i = index">
+                        <td>{{impDate.title}}</td>
+                        <td><input type="text" value="{{impDate.dateOrText}}" [disabled]="true"></td>
+                        <td><button class="btn btn-danger" (click)="removePostDate(i)">remove</button></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label>Post Link:</label>
+                    <input type="url" name="postLink" class="form-control" [(ngModel)]="job.postLink" required>
+                  </div> -->
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea class="form-control" name="description" [(ngModel)]="job.description"></textarea>
+
+                </div>
+                <div class="form-group">
+                  <label>applicationStartDate:</label>
+                  <input type="date" name="applicationStartDate" [ngModel]="job.applicationStartDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="job.applicationStartDate = $event" class="form-control" 
+                    required>
+                </div>
+                <div class="form-group">
+                  <label>applicationLastDate:</label>
+                  <input type="date" name="applicationLastDate" class="form-control"
+                   [ngModel]="job.applicationLastDate | date:'yyyy-MM-dd'"
+                    (ngModelChange)="job.applicationLastDate = $event"
+                    required>
+                </div>
+                <div class="form-group">
+                  <label>applicationLastDateOfFee:</label>
+                  <input type="date" name="applicationLastDateOfFee" class="form-control"
+                  [ngModel]="job.applicationLastDateOfFee | date:'yyyy-MM-dd'"
+                  (ngModelChange)="job.applicationLastDateOfFee = $event"
+                     required>
+                </div>
+                <editor name="otherDetailsEditor" apiKey="dq80qevm0a7i5y808hqjzvvj6d9veejiy9vwoxh4l7w79hxd"
+                  [(ngModel)]="job.otherDetails" [init]="{
+                    menubar: true,
+                    plugins: [
+                      'advlist autolink lists link image charmap print preview anchor',
+                      'searchreplace visualblocks code fullscreen',
+                      'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar:
+                      'undo redo | formatselect | bold italic backcolor | \
+                      alignleft aligncenter alignright alignjustify | \
+                      bullist numlist outdent indent | removeformat | help'
+                  }"></editor>
+                <span [innerHTML]="job.otherDetails | safeHTML"></span>
+
+                <div class="form-group">
+                  <button type="submit" [disabled]="!jobForm.valid" class="btn btn-success">Submit</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>

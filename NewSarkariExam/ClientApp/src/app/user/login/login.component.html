@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 p-1">
+            <form #form="ngForm" autocomplete="off" (ngSubmit)="login(form)">
+                <div class="form-group">
+                  <label for="email">Email address:</label>
+                  <input  type="text" name="userName" [(ngModel)]="userModel.userName" class="form-control" placeholder="Enter email" id="email" required>
+                </div>
+                <div class="form-group">
+                  <label for="pwd">Password:</label>
+                  <input  name="password" [(ngModel)]="userModel.password" type="password" class="form-control" placeholder="Enter password" id="pwd" required>
+                </div>
+               
+                <button type="submit" class="btn"  style="background-color: #e9ecef;" [disabled]="form.invalid">Login</button>
+              </form>
+        </div>
+    </div>
+  
+</div>

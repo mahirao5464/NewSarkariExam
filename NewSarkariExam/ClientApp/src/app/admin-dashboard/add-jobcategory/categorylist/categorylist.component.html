@@ -1,0 +1,80 @@
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 p-2">
+        <h2>Category List</h2>
+        <ul class="list-group">
+            <li data-toggle="modal" data-target="#myModal" class="list-group-item" *ngFor='let category of categories'><a class="btn btn-default" [routerLink]="['/add-jobcategory']"><b>{{category.name}}</b></a><button class="badge badge-pill" (click)='deleteCategory(category)' [ngClass]="{'badge-danger': category.categoryStatus==false,'badge-success': category.categoryStatus}"><span *ngIf="category.categoryStatus">Deactivate</span><span *ngIf="!category.categoryStatus">deativated</span></button><button class="badge badge-pill badge-success" (click)='loadCategoryToUpdate(category)'>Edit</button></li>
+            <!-- <li class="list-grhol;phg cw njmc 1coup-item">Dapibus ac facilisis in</li>
+            <li class="list-group-item">Morbi leo risus</li>
+            <li class="list-group-item">Porta ac consectetur ac</li>
+            <li class="list-group-item">Vestibulum at eros</li> -->
+          </ul>
+      </div>
+      <div class="col-lg-4 pt-5">
+        <ul class="list-group">
+          <li class="list-group-item"><a class="btn btn-default" [routerLink]="['/add-jobcategory']" ><b>Add New Category</b></a></li>
+          <!-- <li class="list-grhol;phg cw njmc 1coup-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li> -->
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Category</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <form #categoryForm="ngForm" (ngSubmit)="submitForm(categoryForm)">
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="category.name" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Short Name For Category :</label>
+                    <input type="text" name="shortName" class="form-control" [(ngModel)]="category.shortName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>State Name (if this is any state exam i.e. Haryana, Center) :</label>
+                    <input type="text" name="stateName" class="form-control" [(ngModel)]="category.stateName" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" name="description" [(ngModel)]="category.description"></textarea>
+          
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" [disabled]="!categoryForm.valid" class="btn btn-success">Submit</button>
+          
+          
+                  </div>
+                </form>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  
