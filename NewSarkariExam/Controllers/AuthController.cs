@@ -18,7 +18,7 @@ public class AuthController : ControllerBase
     // GET api/values
     [HttpPost, Route("login")]
     public IActionResult Login([FromBody]LoginModel user)
-    {   
+    {    
         if (user == null)
         {
             return BadRequest("Invalid client request");

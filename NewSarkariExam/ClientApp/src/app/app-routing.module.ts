@@ -13,6 +13,7 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { JoblistComponent } from './admin-dashboard/add-jobs/joblist/joblist.component';
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuardService as AuthGuard } from './AuthGuard/auth-guard.service'
+import { MenuComponent } from './admin-dashboard/menu/menu.component';
 
 
 
@@ -31,6 +32,7 @@ const routes: Routes = [
     children:[
       { path: 'add-job', component: AddJobsComponent },
       { path: 'job-list', component: JoblistComponent },
+      { path: 'menu', component: MenuComponent}
     ] 
   }
 ];
