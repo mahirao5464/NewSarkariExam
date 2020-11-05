@@ -24,15 +24,16 @@ const routes: Routes = [
   { path: 'answer-keys', component: AnswerKeysComponent },
   { path: 'other-jobs', component: OtherJobsComponent },
   { path: 'all-notifications', component: AllNotificationsComponent },
-  { path: 'add-jobcategory', component: AddJobcategoryComponent },
-  { path: 'category-list', component: CategorylistComponent },
   { path: 'user/login', component: LoginComponent },
   {
     path: 'dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],
     children:[
       { path: 'add-job', component: AddJobsComponent },
       { path: 'job-list', component: JoblistComponent },
-      { path: 'menu', component: MenuComponent}
+      { path: 'menu', component: MenuComponent},
+      { path: 'add-jobcategory', component: AddJobcategoryComponent },
+      { path: 'category-list', component: CategorylistComponent }
+
     ] 
   }
 ];

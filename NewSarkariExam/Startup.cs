@@ -13,6 +13,7 @@ using NewSarkariExam.DataAccess.Data.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using NewSarkariExam.Models;
 
 namespace NewSarkariExam
 {
@@ -50,6 +51,7 @@ namespace NewSarkariExam
                     .AllowAnyMethod();
                 });
             });
+            services.Configure<UserConfigSetting>(Configuration.GetSection("User"));
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,8 +65,8 @@ namespace NewSarkariExam
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:5000",
-                    ValidAudience = "http://localhost:5000",
+                    ValidIssuer = Configuration.GetValue<string>("User:Issuer"),//"http://localhost:5000",
+                    ValidAudience = Configuration.GetValue<string>("User:Audience"),
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
                 };
             });

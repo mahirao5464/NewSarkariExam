@@ -6,14 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NewSarkariExam.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
+
 [Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
+    private readonly IOptions<UserConfigSetting> appSettings;
     private IConfiguration _configuration;
-    public AuthController(IConfiguration config)
+    public AuthController(IConfiguration config, IOptions<UserConfigSetting> app)
     {
         this._configuration=config;
+        this.appSettings=app;
     }
     // GET api/values
     [HttpPost, Route("login")]
@@ -23,15 +27,14 @@ public class AuthController : ControllerBase
         {
             return BadRequest("Invalid client request");
         }
-            var userSettings= _configuration.GetValue<UserConfigSetting>("User");
-        if (user.UserName == "Mahipal" && user.Password == "Mahipal")
+        if (user.UserName == appSettings.Value.UserName && user.Password == appSettings.Value.Password)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
             var tokeOptions = new JwtSecurityToken(
-                issuer: "http://localhost:5000",//userSettings.Issuer,
-                audience: "http://localhost:5000",//userSettings.Audience,
+                issuer: appSettings.Value.Issuer,
+                audience: appSettings.Value.Audience,//userSettings.Audience,
                 claims: new List<System.Security.Claims.Claim>(),
                 expires: DateTime.Now.AddMinutes(30),
                 signingCredentials: signinCredentials
