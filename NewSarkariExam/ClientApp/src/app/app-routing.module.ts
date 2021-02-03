@@ -14,6 +14,8 @@ import { JoblistComponent } from './admin-dashboard/add-jobs/joblist/joblist.com
 import { LoginComponent } from './user/login/login.component';
 import { AuthGuardService as AuthGuard } from './AuthGuard/auth-guard.service'
 import { MenuComponent } from './admin-dashboard/menu/menu.component';
+import { SinglejobComponent } from './all-notifications/singlejob/singlejob.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 
@@ -23,10 +25,12 @@ const routes: Routes = [
   { path: 'results', component: ResultsComponent },
   { path: 'answer-keys', component: AnswerKeysComponent },
   { path: 'other-jobs', component: OtherJobsComponent },
-  { path: 'all-notifications', component: AllNotificationsComponent },
+  { path: 'all-jobs', component: AllNotificationsComponent},
+  {path:'all-jobs/:cat', component: SinglejobComponent  },
+  {path:'all-jobs/:cat/:id', component: SinglejobComponent },
   { path: 'user/login', component: LoginComponent },
   {
-    path: 'dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard],
+    path: 'dashboard', component: AdminDashboardComponent, canActivateChild: [AuthGuard],
     children:[
       { path: 'add-job', component: AddJobsComponent },
       { path: 'job-list', component: JoblistComponent },
@@ -35,7 +39,8 @@ const routes: Routes = [
       { path: 'category-list', component: CategorylistComponent }
 
     ] 
-  }
+  },
+  {path:'**', component: NotFoundComponent}
 ];
 
 

@@ -13,7 +13,9 @@ import { User } from 'src/app/models/user.model';
 })
 export class LoginComponent implements OnInit {
   userModel: User = new User();
-  constructor(private dashboardService: AdminService, private toster: ToastrService, private route: Router ) { }
+  constructor(private dashboardService: AdminService, private toster: ToastrService, private route: Router ) { 
+    
+  }
 
   ngOnInit(): void {
   }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -24,30 +26,93 @@ namespace NewSarkariExam.Controllers
             _logger = logger;
             _unityOfWork = unitOfWork;
         }
+        [HttpGet("getJobDetailByCatNJob")]
+        public JsonResult getJobDetailByCatNJob(string category, string jobName = null)
+        {
 
+            try
+            {
+                category = category.Replace("-", " ");
+                var dbCategory = _unityOfWork.Category.GetFirstOrDefault(cat => cat.ShortName == category);
+
+                if (dbCategory != null)
+                {
+                    if (!string.IsNullOrEmpty(jobName))
+                    {
+                        jobName = jobName.Replace("-", " ");
+                        var Job = _unityOfWork.Job.GetFirstOrDefault(el => el.PostName == jobName && el.CategoryId == dbCategory.Id, "Category,ImportantLinks,ImportantDates");
+                        if(Job == null ) return new JsonResult(new { StatusCode = HttpStatusCode.NotFound, Message = "Job not found" });
+
+                        Job.PostedOn=Job.PostedOn.Date;
+                        var jobToReturn = new object[1] { Job };
+
+                        return new JsonResult(new
+                        {
+                            StatusCode = HttpStatusCode.OK,
+                            Jobs = jobToReturn
+                        });
+                    }
+                    else
+                    {
+                        return new JsonResult(new
+                        {
+                            StatusCode = HttpStatusCode.OK,
+                            Jobs = _unityOfWork.Job.GetAll().Where(el => el.CategoryId == dbCategory.Id).Select(
+                    Job => new { Id = Job.Id, PostName = Job.PostName, PostShortName = Job.PostShortName, category = Job.Category.ShortName, PostedOn = Job.LastUpdatedOn.ToString("dd/MM/yyyy") }).OrderByDescending(el => el.Id)
+                        });
+                    }
+
+
+
+                }
+                else
+                {
+                    return new JsonResult(new { StatusCode = HttpStatusCode.NotFound, Message = "Category not found" });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.StackTrace);
+                return new JsonResult(new { StatusCode = HttpStatusCode.InternalServerError, Message = "InternalServerError" });
+            }
+
+        }
+        [HttpGet("GetJobs")]
+        public JsonResult GetJobs()
+        {
+
+            try
+            {
+                return new JsonResult(new
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Jobs = _unityOfWork.Job.GetAll(null, null, "Category").Select(
+                    Job => new { Id = Job.Id, PostName = Job.PostName, PostShortName = Job.PostShortName, category = Job.Category.ShortName, PostedOn = Job.LastUpdatedOn.ToString("dd/MM/yyyy") }).OrderByDescending(el => el.Id).Take(10)
+                });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.StackTrace);
+                return new JsonResult(new { StatusCode = HttpStatusCode.InternalServerError, Message = "InternalServerError" });
+            }
+
+        }
         [HttpGet]
         public IEnumerable<Job> Get()
         {
             try
             {
-                
-                return _unityOfWork.Job.GetAll(null,null, "Category,ImportantLinks,ImportantDates");
+
+                return _unityOfWork.Job.GetAll(null, null, "Category,ImportantLinks,ImportantDates");
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.StackTrace);
                 return new List<Job>();
             }
-            //var rng = new Random();
-            //return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            //{
-            //    Date = DateTime.Now.AddDays(index),
-            //    TemperatureC = rng.Next(-20, 55),
-            //    Summary = Summaries[rng.Next(Summaries.Length)]
-            //})
-            //.ToArray();
+
         }
-        [HttpPost("AddJob"),Authorize]
+        [HttpPost("AddJob"), Authorize]
         public CategoryResponse AddJob([FromBody] JobApiModel job)
         {
             Job dbJob = new Job();
@@ -57,6 +122,7 @@ namespace NewSarkariExam.Controllers
             {
                 if (!_unityOfWork.Job.IsAlreadyAvailable(dbJob))
                 {
+                    dbJob.PostedOn = new DateTime();
                     _unityOfWork.Job.Add(dbJob);
                     _unityOfWork.Save();
                     apiResponse.Message = "Successfully Inserted ";
@@ -76,21 +142,21 @@ namespace NewSarkariExam.Controllers
             }
 
         }
-        [HttpPost("DeleteJob"),Authorize]
+        [HttpPost("DeleteJob"), Authorize]
         public CategoryResponse DeleteJob([FromBody] JobApiModel job)
         {
             CategoryResponse apiResponse = new CategoryResponse();
             try
             {
-                
-                   var dbJob = _unityOfWork.Job.GetFirstOrDefault(el=>el.Id == job.Id,"ImportantLinks,ImportantDates");
-                    _unityOfWork.Job.Remove(dbJob);
-                    _unityOfWork.Save();
-                    apiResponse.Message = "Successfully updated ";
-                    apiResponse.Code = 200;
-                    apiResponse.Description = $"{job.PostName} successfully updated";
-                    return apiResponse;
-                
+
+                var dbJob = _unityOfWork.Job.GetFirstOrDefault(el => el.Id == job.Id, "ImportantLinks,ImportantDates");
+                _unityOfWork.Job.Remove(dbJob);
+                _unityOfWork.Save();
+                apiResponse.Message = "Successfully delete Job ";
+                apiResponse.Code = 200;
+                apiResponse.Description = $"{job.PostName} successfully delete";
+                return apiResponse;
+
             }
             catch (Exception ex)
             {
@@ -99,7 +165,7 @@ namespace NewSarkariExam.Controllers
             }
 
         }
-        [HttpPost("UpdateJob"),Authorize]
+        [HttpPost("UpdateJob"), Authorize]
         public CategoryResponse UpdateJob([FromBody] JobApiModel job)
         {
             Job dbJob = new Job();
@@ -128,7 +194,7 @@ namespace NewSarkariExam.Controllers
             }
 
         }
-        [HttpGet("GetCategoryListForDropDown"),Authorize]
+        [HttpGet("GetCategoryListForDropDown"), Authorize]
         public IEnumerable<SelectListItem> GetCategoryListForDropDown()
         {
             return _unityOfWork.Category.GetCategoryListForDropDown();

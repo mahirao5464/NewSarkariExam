@@ -17,12 +17,32 @@ export class ServerApiService {
   login(user: User): Observable<any> {
     return this.httpClient.post(`${this.apiEndPoint}api/Auth/Login`, user);
   }
+
+// FrontEnd API call - start 
+public getFrontEndJobs(): Observable<any>{
+ let endPoint = `${this.apiEndPoint}api/job/getjobs`;
+ return this.httpClient.get<any>(`${this.apiEndPoint}api/job/getjobs`).pipe(
+  catchError(this.handleError<any>('getFrontEndJobs', new Array<any>()))
+);
+}
+public getJobDetailByCatNJob(cat: string, job?: string): Observable<any>{
+  let endPoint = `${this.apiEndPoint}api/job/getJobDetailByCatNJob?category=${cat}&jobName=${job!=null?job:''}`;
+  return this.httpClient.get<any>(endPoint).pipe(
+   catchError(this.handleError<any>('getFrontEndJobs', new Array<any>()))
+ );
+ }
+ 
+// FrontEnd API Call - End
+
   public addJob(job: Job): Observable<CategoryResponse> {
     return this.httpClient.post<CategoryResponse>(`${this.apiEndPoint}api/Job/AddJob`, job).pipe(
       catchError(this.handleError<CategoryResponse>('addJob', new CategoryResponse()))
     );
   }
-  public getJobs(): Observable<Job[]> {
+  public getJobs(isFrontEnd?: boolean): Observable<Job[]> {
+
+    let endPoint = `${this.apiEndPoint}api/job`;
+    if (isFrontEnd) endPoint += '/getjobs';
     return this.httpClient.get<Job[]>(`${this.apiEndPoint}api/job`).pipe(
       catchError(this.handleError<Job[]>('getJobs', new Array<Job>()))
     );

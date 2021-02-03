@@ -32,12 +32,9 @@ import { JoblistComponent } from './admin-dashboard/add-jobs/joblist/joblist.com
 import { LoginComponent } from './user/login/login.component';
 import { AuthInterceptorService } from './admin-dashboard/auth-interceptor.service';
 import { MenuComponent } from './admin-dashboard/menu/menu.component';
-import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
+import { SinglejobComponent } from './all-notifications/singlejob/singlejob.component';
+import { CommingSoonComponent } from './comming-soon/comming-soon.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -59,7 +56,10 @@ export function tokenGetter() {
     NoSanitizePipe,
     JoblistComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    SinglejobComponent,
+    CommingSoonComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -79,12 +79,6 @@ export function tokenGetter() {
         disallowedRoutes: []
       }
     }),
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule
   ],
   providers: [ 
     FireService,

@@ -3,7 +3,7 @@
       <div class="col-lg-8 p-2">
         <h2>Category List</h2>
         <ul class="list-group">
-            <li data-toggle="modal" data-target="#myModal" class="list-group-item" *ngFor='let category of categories'><a class="btn btn-default" [routerLink]="['/add-jobcategory']"><b>{{category.name}}</b></a><button class="badge badge-pill" (click)='deleteCategory(category)' [ngClass]="{'badge-danger': category.categoryStatus==false,'badge-success': category.categoryStatus}"><span *ngIf="category.categoryStatus">Deactivate</span><span *ngIf="!category.categoryStatus">deativated</span></button><button class="badge badge-pill badge-success" (click)='loadCategoryToUpdate(category)'>Edit</button></li>
+            <li class="list-group-item" *ngFor='let category of categories'><a class="btn btn-default" [routerLink]="['/add-jobcategory']"><b>{{category.name}}</b></a><button class="badge badge-pill" (click)='deleteCategory(category)' [ngClass]="{'badge-danger': category.categoryStatus==false,'badge-success': category.categoryStatus}"><span *ngIf="category.categoryStatus">Deactivate</span><span *ngIf="!category.categoryStatus">deativated</span></button><button class="badge badge-pill badge-success" data-toggle="modal" data-target="#myModal"  (click)='loadCategoryToUpdate(category)'>Edit</button></li>
             <!-- <li class="list-grhol;phg cw njmc 1coup-item">Dapibus ac facilisis in</li>
             <li class="list-group-item">Morbi leo risus</li>
             <li class="list-group-item">Porta ac consectetur ac</li>

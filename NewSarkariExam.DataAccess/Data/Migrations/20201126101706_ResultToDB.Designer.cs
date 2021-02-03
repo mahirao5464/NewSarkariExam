@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NewSarkariExam.DataAccess.Data;
 
 namespace NewSarkariExam.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201126101706_ResultToDB")]
+    partial class ResultToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,36 +159,6 @@ namespace NewSarkariExam.DataAccess.Migrations
                     b.ToTable("PostLinks");
                 });
 
-            modelBuilder.Entity("NewSarkariExam.Models.Result", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ResultContect")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("Results");
-                });
-
             modelBuilder.Entity("NewSarkariExam.Models.ImportantDates", b =>
                 {
                     b.HasOne("NewSarkariExam.Models.Job", "Job")
@@ -208,15 +180,6 @@ namespace NewSarkariExam.DataAccess.Migrations
                     b.HasOne("NewSarkariExam.Models.Job", "Job")
                         .WithMany("ImportantLinks")
                         .HasForeignKey("JobId");
-                });
-
-            modelBuilder.Entity("NewSarkariExam.Models.Result", b =>
-                {
-                    b.HasOne("NewSarkariExam.Models.Job", "Job")
-                        .WithMany()
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

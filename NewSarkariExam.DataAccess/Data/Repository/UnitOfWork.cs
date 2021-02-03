@@ -17,6 +17,7 @@ namespace NewSarkariExam.DataAccess.Data.Repository
         public ICategoryRepository Category { get; private set; }
 
         public IJobRepository Job { get; private set; }
+        public IResultRepository Result { get; private set; }
         public void Dispose()
         {
             _db.Dispose();

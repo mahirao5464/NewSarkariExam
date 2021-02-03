@@ -1,6 +1,6 @@
 <section>
     <div class="container">
-        <div class="row p-2">
+        <!-- <div class="row p-2">
             <div class="col-md-4">
                 <div class="card m-2">
                     <div class="card-body">
@@ -28,7 +28,7 @@
                     </div>
                   </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </section>
 <section>
@@ -37,15 +37,13 @@
             <div class="col-md-4">
                 <div class="card border-danger mb-2" >
                     <div class="card-header bg-danger  text-white">
-                      <h3>Latest Notifications</h3>
+                      <h3>Latest Jobs</h3>
                     </div>
                     <ul class="list-group list-group-flush" [ngClass]="{'full-height' : isDesktop}">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
+                      <li class="list-group-item  pointer btn-link" *ngFor='let job of jobs'><a href="#" [routerLink]="['all-jobs',job.category.replaceAll(' ','-'),job.postName.replaceAll(' ','-')]"> {{job.postName}}</a></li>
                     </ul>
                     <div class="card-body">
-                      <a [routerLink]="['/all-notifications']" routerLinkActive="router-link-active"  class="card-link">All Notifications &#8594; </a>
+                      <a [routerLink]="['/all-jobs']" routerLinkActive="router-link-active"  class="card-link">All Jobs &#8594; </a>
                     </div>
                   </div>
                   
@@ -56,18 +54,10 @@
                       <h3>admit cards</h3>
                     </div>
                     <ul class="list-group list-group-flush" [ngClass]="{'full-height' : isDesktop}">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
+                      <li class="list-group-item">Comming Soon</li>
                     </ul>
                     <div class="card-body">
-                      <a [routerLink]="['/admitcards']" routerLinkActive="router-link-active"  class="card-link">All Admit Cards &#8594; </a>
+                      <!-- <a [routerLink]="['/admitcards']" routerLinkActive="router-link-active"  class="card-link">All Admit Cards &#8594; </a> -->
                     </div>
                   </div>
             </div>
@@ -77,12 +67,10 @@
                       <h3>Results</h3>
                     </div>
                     <ul class="list-group list-group-flush"  [ngClass]="{'full-height' : isDesktop}">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
+                      <li class="list-group-item">Comming Soon</li>
                     </ul>
                     <div class="card-body">
-                      <a [routerLink]="['/results']" routerLinkActive="router-link-active"  class="card-link">All Results &#8594; </a>
+                      <!-- <a [routerLink]="['/results']" routerLinkActive="router-link-active"  class="card-link">All Results &#8594; </a> -->
                     </div>
                   </div>
             </div>

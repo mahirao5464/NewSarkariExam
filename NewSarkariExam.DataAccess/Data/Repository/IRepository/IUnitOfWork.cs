@@ -8,6 +8,7 @@ namespace NewSarkariExam.DataAccess.Data.Repository.IRepository
     {
         ICategoryRepository Category { get; }
         public IJobRepository Job { get; }
+        public IResultRepository Result { get; }
         void Save();
     }
 }

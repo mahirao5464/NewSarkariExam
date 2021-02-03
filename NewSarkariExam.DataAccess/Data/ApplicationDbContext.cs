@@ -38,6 +38,7 @@ namespace NewSarkariExam.DataAccess.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<PostLinks> PostLinks { get; set; }
+        public DbSet<Result> Results { get; set; }
         public DbSet<ImportantDates> ImportantDates { get; set; }
     }
     // fix for design time applicationdbcontext error 

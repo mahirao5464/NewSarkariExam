@@ -25,6 +25,7 @@ export class Job {
     applicationLastDateOfFee: Date;
     categoryId: number;
     category: Category;
+    //results: Results;
     otherDetails: string;
 
 }
@@ -37,4 +38,14 @@ export class ImportantDates {
     id: number;
     title: string;
     dateOrText: string;
+}
+export class Results {
+  id: number;
+  JobId: number;
+  job: Job;
+  ResultContect: string;
+  CreatedOn: Date;
+  UpdateOn: Date;
+  Description: string;
+
 }
