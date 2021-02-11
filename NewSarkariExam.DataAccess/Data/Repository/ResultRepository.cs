@@ -17,11 +17,19 @@ namespace NewSarkariExam.DataAccess.Data.Repository
             this._db = db; 
         }
 
-        //public bool IsAlreadyAvailable(Job job)
-        //{
-        //    return _db.Jobs.Any(el => (el.PostName == job.PostName || el.AdvtNo == job.AdvtNo) && el.CategoryId == job.CategoryId);
-        //}
+        public bool IsAlreadyAvailable(Result result)
+        {
+            return _db.Results.Any(el => el.JobId == result.JobId);
+        }
+        public void Update(Result result)
+        {
+            var objectFromDb = _db.Results.Find(result.Id);
+            if (objectFromDb != null)
+            {
+                _db.Results.Update(objectFromDb);
+            }
 
+        }
         //public void Update(Job job)
         //{
         //    var objectFromDb = _db.Jobs.Find(job.Id);

@@ -5,8 +5,8 @@ namespace NewSarkariExam.DataAccess.Data.Repository
 {
     public interface IResultRepository : IRepository<Result>
     {
-        //void Update(Result result);
-        //bool IsAlreadyAvailable(Result result);
+        void Update(Result result);
+        bool IsAlreadyAvailable(Result result);
         //bool IsUpdatable(Result result);
     }
 }

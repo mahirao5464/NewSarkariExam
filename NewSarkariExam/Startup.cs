@@ -19,6 +19,7 @@ namespace NewSarkariExam
 {
     public class Startup
     {
+        public static string ConString {get; set;}
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -40,7 +41,7 @@ namespace NewSarkariExam
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
+            ConString = Configuration.GetConnectionString("DefaultConnection");
             //JWT Auth
             services.AddCors(options =>
             {

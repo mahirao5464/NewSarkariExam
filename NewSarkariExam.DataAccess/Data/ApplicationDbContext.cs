@@ -6,12 +6,13 @@ using Microsoft.EntityFrameworkCore;
 using NewSarkariExam.Models;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-
+using Microsoft.Extensions.Configuration;
 
 namespace NewSarkariExam.DataAccess.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -48,8 +49,8 @@ namespace NewSarkariExam.DataAccess.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Database=NSE_DB;Trusted_Connection=True;MultipleActiveResultSets=true");
-
             return new ApplicationDbContext(optionsBuilder.Options);
         }
     }
+   
 }

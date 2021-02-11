@@ -16,6 +16,8 @@ import { AuthGuardService as AuthGuard } from './AuthGuard/auth-guard.service'
 import { MenuComponent } from './admin-dashboard/menu/menu.component';
 import { SinglejobComponent } from './all-notifications/singlejob/singlejob.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ResultlistComponent } from './admin-dashboard/add-result/resultlist/resultlist.component';
+import { AddResultComponent } from './admin-dashboard/add-result/add-result.component';
 
 
 
@@ -36,7 +38,10 @@ const routes: Routes = [
       { path: 'job-list', component: JoblistComponent },
       { path: 'menu', component: MenuComponent},
       { path: 'add-jobcategory', component: AddJobcategoryComponent },
-      { path: 'category-list', component: CategorylistComponent }
+      { path: 'category-list', component: CategorylistComponent },
+      { path: 'add-result', component: AddResultComponent },
+      { path: 'result-list', component: ResultlistComponent }
+
 
     ] 
   },

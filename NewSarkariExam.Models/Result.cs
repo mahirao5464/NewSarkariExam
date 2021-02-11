@@ -10,20 +10,14 @@ namespace NewSarkariExam.Models
         [Key]
         public int Id { get; set; }
         [Required]
+        [ForeignKey("Job")]
         public int JobId { get; set; }
-       
         [Required]
-       
         public string ResultContect { get; set; }
-
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; } = DateTime.Now;
-
         public string Description { get; set; }
-
-
-        [ForeignKey("JobId")]
-        public Job Job { get; set; }
+        public virtual Job Job { get; set; }
 
     }
 }

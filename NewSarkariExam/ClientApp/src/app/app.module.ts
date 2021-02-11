@@ -35,6 +35,8 @@ import { MenuComponent } from './admin-dashboard/menu/menu.component';
 import { SinglejobComponent } from './all-notifications/singlejob/singlejob.component';
 import { CommingSoonComponent } from './comming-soon/comming-soon.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AddResultComponent } from './admin-dashboard/add-result/add-result.component';
+import { ResultlistComponent } from './admin-dashboard/add-result/resultlist/resultlist.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -59,7 +61,9 @@ export function tokenGetter() {
     MenuComponent,
     SinglejobComponent,
     CommingSoonComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AddResultComponent,
+    ResultlistComponent
   ],
   imports: [
     BrowserModule,

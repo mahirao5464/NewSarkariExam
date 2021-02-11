@@ -122,7 +122,8 @@ namespace NewSarkariExam.Controllers
             {
                 if (!_unityOfWork.Job.IsAlreadyAvailable(dbJob))
                 {
-                    dbJob.PostedOn = new DateTime();
+                    dbJob.PostedOn = DateTime.Now;
+                    dbJob.LastUpdatedOn = DateTime.Now;
                     _unityOfWork.Job.Add(dbJob);
                     _unityOfWork.Save();
                     apiResponse.Message = "Successfully Inserted ";

@@ -13,6 +13,7 @@ namespace NewSarkariExam.DataAccess.Data.Repository
             this._db = db;
             Category = new CategoryRepository(db);
             Job = new JobRepository(db);
+            Result = new ResultRepository(db);
         }
         public ICategoryRepository Category { get; private set; }
 

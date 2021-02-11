@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Inject } from '@angular/core';
-import { Category, CategoryResponse } from 'src/app/models/category.model';
+import { Category, CategoryResponse } from '../../models/category.model';
 import {  Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
-import { CategoryDrowDown, Job } from 'src/app/models/job.model';
-import { User } from 'src/app/models/user.model';
+import { CategoryDrowDown, Job } from '../../models/job.model';
+import { User } from '../../models/user.model';
+import { Result } from '../../models/result.model';
+
 
 @Injectable({ providedIn: 'root' })
 export class ServerApiService {
@@ -82,6 +84,20 @@ public getJobDetailByCatNJob(cat: string, job?: string): Observable<any>{
       catchError(this.handleError<CategoryResponse>('updateJob', new CategoryResponse()))
     );
   }
+
+  addResult(result: Result): Observable<CategoryResponse>{
+    console.log(result);
+    return this.httpClient.post<CategoryResponse>(`${this.apiEndPoint}api/results/addresult`, result).pipe(
+      catchError(this.handleError<CategoryResponse>('addResult', new CategoryResponse()))
+    );
+  }
+  public getResultById(id: number): Observable<Result>{
+    
+    return this.httpClient.get<Result>(`${this.apiEndPoint}api/results/GetResultById?id=${id}`).pipe(
+      catchError(this.handleError<Result>('addResult', new Result()))
+    );
+  }
+
   // tslint:disable-next-line: typedef
   private handleError<T>(operation = 'operation', result?: T){
     return (error: any): Observable<T> => {

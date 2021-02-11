@@ -1,0 +1,43 @@
+<div class="container">
+<div class="row">
+<div class="col-sm-8">
+    <form #resultForm="ngForm" (ngSubmit)="submitForm(resultForm)" >
+        <div class="form-group">
+            <label for="jobId">Select Job: </label>
+            <select name="jobId" class="form-control" [(ngModel)]="result.jobId" (change)="getResult(result.jobId)"  required>
+              <option *ngFor="let job of jobs" [value]='job.value'>
+                {{job.text}} <span class="badge badge-light">( {{job.category}} ) </span>
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+              <label for="description">
+                Description:
+              </label>
+            <textarea class="form-control" name="description" [(ngModel)]="result.description">
+                
+            </textarea>
+          </div>
+          <div class="form-group">
+            <editor required name="resultContent" apiKey="dq80qevm0a7i5y808hqjzvvj6d9veejiy9vwoxh4l7w79hxd"
+            [(ngModel)]="result.resultContect" [init]="{
+              menubar: true,
+              plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+              ],
+              toolbar:
+                'undo redo | formatselect | bold italic backcolor | \
+                alignleft aligncenter alignright alignjustify | \
+                bullist numlist outdent indent | removeformat | help'
+            }"></editor>
+          <span [innerHTML]="result.resultContect | safeHTML"></span>
+          </div>
+          <div class="form-group">
+            <button type="submit" [disabled]="!resultForm.valid" class="btn btn-success">Submit</button>
+           </div>
+    </form>
+</div>
+</div>
+</div>
