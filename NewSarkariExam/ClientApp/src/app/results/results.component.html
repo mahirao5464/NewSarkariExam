@@ -1,1 +1,33 @@
-<app-comming-soon></app-comming-soon>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 pt-2">
+            <div class="card border-danger  mb-2">
+                <div class="card-header bg-danger  text-white">
+                    <h3>All Latest Results</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item pointer btn-link" *ngFor='let job of jobs'><a href="#" [routerLink]="['/all-jobs',job.category.replaceAll(' ','-'),job.postName.replaceAll(' ','-')]">{{job.postName}}  <span class="badge badge-pill badge-info">{{job.postedOn}}</span></a></li>
+                </ul>
+                <!-- <div class="card-body">
+                    <a [routerLink]="['/results']" routerLinkActive="router-link-active" class="card-link">All Results
+                        &#8594; </a>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-md-4 pt-2">
+            <div class="card border-danger  mb-1">
+                <div class="card-header bg-danger  text-white">
+                    <h5>Other Links</h5>
+                </div>
+                <ul class="list-group list-group-flush" >
+                  <li class="list-group-item">Comming Soon</li>
+                    
+                </ul>
+                <!-- <div class="card-body">
+                    <a [routerLink]="['/results']" routerLinkActive="router-link-active" class="card-link">All Results
+                        &#8594; </a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

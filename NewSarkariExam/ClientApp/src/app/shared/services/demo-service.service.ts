@@ -9,8 +9,6 @@ export class DemoServiceService {
  obsub:Subscription;
  
   constructor() { 
-    this.obsub = this.demoOb.subscribe(
-      next: (val)=> 
-    );
+    
   }
 }

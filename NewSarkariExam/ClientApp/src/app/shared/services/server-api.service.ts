@@ -21,9 +21,10 @@ export class ServerApiService {
   }
 
 // FrontEnd API call - start 
-public getFrontEndJobs(): Observable<any>{
+public getFrontEndJobs(count?: Number): Observable<any>{
  let endPoint = `${this.apiEndPoint}api/job/getjobs`;
- return this.httpClient.get<any>(`${this.apiEndPoint}api/job/getjobs`).pipe(
+ if(count!=undefined) endPoint= `${endPoint}?count=${count}`;
+ return this.httpClient.get<any>(endPoint).pipe(
   catchError(this.handleError<any>('getFrontEndJobs', new Array<any>()))
 );
 }

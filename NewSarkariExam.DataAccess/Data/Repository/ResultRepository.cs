@@ -26,6 +26,9 @@ namespace NewSarkariExam.DataAccess.Data.Repository
             var objectFromDb = _db.Results.Find(result.Id);
             if (objectFromDb != null)
             {
+                objectFromDb.Description = result.Description;
+                objectFromDb.ResultContect = result.ResultContect;
+                objectFromDb.UpdatedOn = DateTime.Now;
                 _db.Results.Update(objectFromDb);
             }
 

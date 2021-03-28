@@ -1,0 +1,112 @@
+
+<ng-template [ngIf]="CategoryFound" [ngIfElse]="elseCategory">
+    <div class="container">
+      <div class="card bg-light">
+        <div class="card-body">
+          <p class="card-text"><span class="pointer btn-link" [routerLink]="['']">Home</span>/<span  [routerLink]="['/all-jobs']" class="pointer btn-link" >All Jobs</span>/<span class="pointer btn-link"  [routerLink]="['../']">{{parameterCategory}}</span>/<span class="pointer btn-link">{{jobName}}</span></p>
+        </div> 
+      </div> 
+    </div>
+   
+  <ng-template [ngIf]="ShowJobList" [ngIfElse]="elseBlock">
+      <div  class="container">
+          <h1 class="LightRed" ><b>{{parameterCategory}}</b></h1>
+          <div class="row">
+              <div class="col-md-8 pt-2">
+                  <div class="card border-danger  mb-2">
+                      <div class="card-header bg-danger  text-white">
+                          <h3>{{parameterCategory}}</h3>
+                      </div>
+                      <ul class="list-group list-group-flush">
+                          <li class="list-group-item pointer btn-link" [routerLink]="[job.postName.replaceAll(' ','-')]" *ngFor='let job of Jobs'>{{job.postName}}  <span class="badge badge-pill badge-info">{{job.postedOn}}</span></li>
+                      </ul>
+                      <!-- <div class="card-body">
+                          <a [routerLink]="['/results']" routerLinkActive="router-link-active" class="card-link">All Results
+                              &#8594; </a>
+                      </div> -->
+                  </div>
+              </div>
+              <div class="col-md-4 pt-2">
+                  <div class="card border-danger  mb-1">
+                      <div class="card-header bg-danger  text-white">
+                          <h5>Other Links</h5>
+                      </div>
+                      <ul class="list-group list-group-flush" >
+                          <li class="list-group-item">Cras justo odio</li>
+                          <li class="list-group-item">Dapibus ac facilisis in</li>
+                          <li class="list-group-item">Vestibulum at eros</li>
+                      </ul>
+                      <!-- <div class="card-body">
+                          <a [routerLink]="['/results']" routerLinkActive="router-link-active" class="card-link">All Results
+                              &#8594; </a>
+                      </div> -->
+                  </div>
+              </div>
+          </div>
+      </div>
+  
+  </ng-template>
+  <ng-template #elseBlock>
+      <div class="container p-2">
+          <h1 class="LightRed" ><b>{{singleJob.postName}}</b></h1>
+          <div class="col-sm-10">
+  
+          <div class="row border border-dark">
+            <div class="col-sm-4" style="background-color:#dc3545;color:white;"><h3>Name of Post </h3></div>
+            <div class="col-sm-8 pl-4" ><h4>{{singleJob.postName}}</h4></div>
+          </div>
+          <div class="row border border-dark">
+              <div class="col-sm-4" style="background-color:#dc3545;color:white;"><h3>Posted On </h3></div>
+              <div class="col-sm-8 pl-4" ><h4>{{postedOn}}</h4></div>
+            </div>
+            <div class="row border border-dark">
+              <div class="col-sm-4" style="background-color:#dc3545;color:white;"><h3>Post Updated On </h3></div>
+              <div class="col-sm-8 pl-4" ><h4>{{postedOn}}</h4></div>
+            </div>
+            <div class="row border border-dark">
+              <div class="col-sm-4" style="background-color:#dc3545;color:white;"><h3>Short Description </h3></div>
+              <div class="col-sm-8 pl-4" ><h4>{{singleJob.description}}</h4></div>
+            </div>
+            <div class="row ">
+              <div class="col-sm-6 border border-dark" >
+                  <h2 class="LightRed" align="center" ><span ><b>Important Dates</b></span><b></b></h2>
+                  <ul>
+                  <li *ngFor="let impdate of singleJob.importantDates" >{{impdate.title}} <b>: {{impdate.dateOrText}}</b></li>
+                  <!-- <li>Application Begin <b>: 11/01/2021</b></li>
+                  <li>Last Date for Apply Online <b>: <span style="color: #ff0000;">10/02/2021</span></b></li>
+                  <li>Last Date Fee Payment <b>: 13/02/2020</b></li>
+                  <li>Exam Date <b>: Notified Soon</b></li>
+                  <li>Admit Card Available<b> : Notified Soon</b></li> -->
+                  </ul>
+              </div>
+              <div class="col-sm-6 border border-dark" >
+                  <h2 class="LightRed" align="center"><span ><b>Application Fees</b></span><b></b></h2>
+  <ul>
+  <li *ngFor="let appFee of singleJob.importantLinks">{{appFee.title}} <b>: {{appFee.link}}</b></li>
+  <!-- <li>Last Date for Apply Online <b>: <span style="color: #ff0000;">10/02/2021</span></b></li>
+  <li>Last Date Fee Payment <b>: 13/02/2020</b></li>
+  <li>Exam Date <b>: Notified Soon</b></li>
+  <li>Admit Card Available<b> : Notified Soon</b></li> -->
+  </ul>
+              </div>
+            </div>
+            <div class="row border border-dark LightRed">
+                <div class="col-sm-12">
+                  <h3 align="center"><b>{{categoryName}}</b></h3>
+                  <h3 align="center"><span ><b>Vacancy Details: </b><b>Total {{singleJob.totalPost}} Posts</b></span></h3>
+                  <h3 align="center"><b>Advt No. <a target="_blank" href="{{singleJob.postLink}}"><span style="text-decoration: underline;">{{singleJob.advtNo}}</span></a></b></h3>
+                </div>
+            </div>
+            <div class="row" [innerHTML]="singleJob.otherDetails | safeHTML">
+              
+          </div>
+        </div>
+        
+      </div>
+  </ng-template>
+  </ng-template>
+  
+  
+  <ng-template #elseCategory>
+      <app-not-found></app-not-found>
+  </ng-template>

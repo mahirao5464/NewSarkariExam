@@ -33,6 +33,7 @@ namespace NewSarkariExam.Controllers
 
 
         }
+       
         [HttpPost("AddResult"), Authorize]
         public CategoryResponse AddResult([FromBody] Result  result)
         {

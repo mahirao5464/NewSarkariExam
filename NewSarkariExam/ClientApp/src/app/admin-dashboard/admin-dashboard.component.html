@@ -57,9 +57,24 @@
  
 
 </div> -->
+    <div class="container">
+
+<div class="row">
+<div class="col-lg-9">
+    <router-outlet></router-outlet>
+</div>
+<div class="col-lg-3 p-3">
+    <ul class="list-group">
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./menu']"><b>Dashboard</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./category-list']"><b>Categories</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./add-jobcategory']"><b>Add New Category</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./add-job']"><b>Add New Job</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./job-list']"><b>Jobs</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./add-result']"><b>Update Result</b></a></li>
+      <li class="list-group-item"><a class="btn btn-default" [routerLink]="['./add-result']"><b>Update Answer Key</b></a></li>
+    </ul>
     
+  </div>
+</div>
 
-<router-outlet></router-outlet>
-
-
-
+</div>

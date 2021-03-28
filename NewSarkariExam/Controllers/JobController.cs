@@ -78,17 +78,23 @@ namespace NewSarkariExam.Controllers
 
         }
         [HttpGet("GetJobs")]
-        public JsonResult GetJobs()
+        public JsonResult GetJobs(int? count)
         {
-
+            count = count == null ? int.MaxValue : count; 
             try
             {
                 return new JsonResult(new
                 {
                     StatusCode = HttpStatusCode.OK,
                     Jobs = _unityOfWork.Job.GetAll(null, null, "Category").Select(
-                    Job => new { Id = Job.Id, PostName = Job.PostName, PostShortName = Job.PostShortName, category = Job.Category.ShortName, PostedOn = Job.LastUpdatedOn.ToString("dd/MM/yyyy") }).OrderByDescending(el => el.Id).Take(10)
-                });
+                    Job => new { Id = Job.Id, PostName = Job.PostName, PostShortName = Job.PostShortName, category = Job.Category.ShortName, PostedOn = Job.LastUpdatedOn.ToString("dd/MM/yyyy") }).OrderByDescending(el => el.Id).Take(count.GetValueOrDefault()),
+                    Results = _unityOfWork.Result.GetAll(null, q => q.OrderBy(el => el.UpdatedOn), "Job").Select(result=> 
+                      new  { Id = result.JobId, PostName = result.Job?.PostName, 
+                        PostShortName = result.Job?.PostShortName, category = result.Job?.Category?.ShortName,
+                        PostedOn = result.UpdatedOn.ToString("dd/MM/yyyy") }
+                        ).Take(count.GetValueOrDefault())
+                }
+                );
             }
             catch (Exception ex)
             {

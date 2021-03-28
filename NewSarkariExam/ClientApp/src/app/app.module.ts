@@ -37,6 +37,7 @@ import { CommingSoonComponent } from './comming-soon/comming-soon.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AddResultComponent } from './admin-dashboard/add-result/add-result.component';
 import { ResultlistComponent } from './admin-dashboard/add-result/resultlist/resultlist.component';
+import { SingleresultComponent } from './results/singleresult/singleresult.component';
 
 export function tokenGetter() {
   return localStorage.getItem("jwt");
@@ -63,7 +64,8 @@ export function tokenGetter() {
     CommingSoonComponent,
     NotFoundComponent,
     AddResultComponent,
-    ResultlistComponent
+    ResultlistComponent,
+    SingleresultComponent
   ],
   imports: [
     BrowserModule,

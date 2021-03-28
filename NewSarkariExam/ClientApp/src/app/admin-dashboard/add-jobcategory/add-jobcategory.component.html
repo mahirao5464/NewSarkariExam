@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-lg-8">
+    <div class="col-lg-12">
       <h2>Add Category</h2>
       <form #categoryForm="ngForm" (ngSubmit)="submitForm(categoryForm)">
         <div class="form-group">
@@ -27,16 +27,7 @@
         </div>
       </form>
     </div>
-    <div class="col-lg-4 pt-5">
-      <ul class="list-group">
-        <li class="list-group-item"><a class="btn btn-default" [routerLink]="['../category-list']"><b>Show All Category</b></a></li>
-        <!-- <li class="list-group-item">Dapibus ac facilisis in</li>
-        <li class="list-group-item">Morbi leo risus</li>
-        <li class="list-group-item">Porta ac consectetur ac</li>
-        <li class="list-group-item">Vestibulum at eros</li> -->
-      </ul>
-      
-    </div>
+    
   </div>
 </div>
 

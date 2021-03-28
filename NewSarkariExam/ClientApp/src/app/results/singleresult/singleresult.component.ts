@@ -7,11 +7,12 @@ import { Job } from 'src/app/models/job.model';
 import { ServerApiService } from 'src/app/shared/services/server-api.service';
 
 @Component({
-  selector: 'app-singlejob',
-  templateUrl: './singlejob.component.html',
-  styleUrls: ['./singlejob.component.css']
+  selector: 'app-singleresult',
+  templateUrl: './singleresult.component.html',
+  styleUrls: ['./singleresult.component.css']
 })
-export class SinglejobComponent implements OnInit {
+
+export class SingleresultComponent implements OnInit {
   Jobs: Array<any>;
   ShowJobList= false;
   CategoryFound= true;
